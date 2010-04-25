@@ -1,7 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
-let g:netrw_dirhist_1='/opt/ruby-1.8.7-p72/lib/ruby/gems/1.8/gems/webrat-0.5.3'
-let g:netrw_dirhist_2='/home/oren/misc/projects/borderstylo/Rit/config/initializers'
-let g:netrw_dirhist_3='/home/oren/.vim/plugin'
-let g:netrw_dirhist_4='/opt/ruby-1.8.7-p72/lib/ruby/gems/1.8/gems/gettext-2.1.0/lib/gettext'
-let g:netrw_dirhist_5='/home/oren/misc/projects/borderstylo/localization_test/gettext_i18n_rails_example/vendor/gems/grosser-fast_gettext-0.4.8/lib/fast_gettext'
