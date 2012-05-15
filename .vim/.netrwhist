@@ -1,7 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
-let g:netrw_dirhist_1='/home/oren/misc/projects/borderstylo/display/mobile/public'
-let g:netrw_dirhist_2='/home/oren/.irssi/scripts'
-let g:netrw_dirhist_3='/home/oren/.vim/bundle/vim-colors-solarized'
-let g:netrw_dirhist_4='/home/oren'
-let g:netrw_dirhist_5='/home/oren/.vim'

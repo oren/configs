@@ -1,0 +1,5 @@
+#!/bin/bash
+
+for x in $HOME/.vim/bundle/*; do cd $x; git pull; done
+
+

@@ -6,16 +6,20 @@ filetype off
 call pathogen#helptags()
 call pathogen#runtime_append_all_bundles()
 
-"no beeps
-set vb t_vb=".
+let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 
+"set encoding=utf-8
+set vb t_vb=".  "no beeps
 syntax enable
+
+set guifont=Menlo:h20
+" set background=light
 set background=dark
+let g:solarized_termcolors=256
+let g:solarized_visibility="high"
+let g:solarized_contrast="high"
 colorscheme solarized
 
-"set number    "show line number
-
-let g:fuzzy_ignore = "gems/*" 
 
 "indent settings
 set sts=2
@@ -25,73 +29,99 @@ set softtabstop=2
 set expandtab
 set autoindent
 
-"set whichwrap+=<,>,h,l,[,]
+set hidden                     " hide buffers when not displayed
+set cursorline                 " highlight the line of the cursor
+set ttyfast                    " faster pasting and smooth redrawing
+set ignorecase                 " ignore case if all chars are lower
+set smartcase
+set gdefault                   " substitutions apply on all the line
+set backspace=indent,eol,start " allow backspacing over everything in insert mode
+set history=1000               " store lots of :cmdline history
+set directory=/var/tmp         " swp files
+set showcmd                    " show incomplete cmds down the bottom
+set showmode                   " show current mode down the bottom
+set incsearch                  " find the next match as we type the search
+set showmatch
+set hlsearch                   " hilight searches by default
+set wildmode=list:longest      " make cmdline tab completion similar to bash
+set wildmenu                   " enable ctrl-n and ctrl-p to scroll thru matches
+set wildignore=*.o,*.obj,*~    " stuff to ignore when tab completing
+"syntax on                      "turn on syntax highlighting
+                               " tab is easier than % for matches
+nnoremap <tab> %
+vnoremap <tab> %
+set scrolloff=3
+                               " ; is easier than :
+nnoremap ; :
+                               " hh is easier than esc
+inoremap hh <ESC>
+au FocusLost * :wa             " save on lost focus
+"make <c-l> clear the highlight as well as redraw
+nnoremap <C-L> :nohls<CR><C-L>
+inoremap <C-L> <C-O>:nohls<CR>
+"map Q to something useful
+noremap Q gq
+"make Y consistent with C and D
+nnoremap Y y$
+"move between splits
+nnoremap <M-h> <C-w>h
+nnoremap <M-j> <C-w>j
+nnoremap <M-k> <C-w>k
+nnoremap <M-l> <C-w>l
 
-"allow backspacing over everything in insert mode
-set backspace=indent,eol,start
+"leader
+let mapleader = ","
+let g:mapleader = ","
+nnoremap <leader>a :Ack
+inoremap <leader>c <C-x><C-o>
 
-set history=1000   "store lots of :cmdline history
+" handle long lines
+set nowrap
+"set textwidth=79
+"set formatoptions=qrn1
+" set colorcolumn=85 "not working. maybe vim version?
 
-set directory=/var/tmp   "swp files
-
-set showcmd     "show incomplete cmds down the bottom
-set showmode    "show current mode down the bottom
-
-set incsearch   "find the next match as we type the search
-set hlsearch    "hilight searches by default
-
-set nowrap      "dont wrap lines
-set linebreak   "wrap lines at convenient points
+"old settings. might go back to this
+" set nowrap                     " dont wrap lines
+" set linebreak                  " wrap lines at convenient points
+" set formatoptions-=o "dont continue comments when pushing o/O
 
 "remove some status line clutter made by rails.vim
 let g:rails_statusline=0
 "set statusline=%f       "full path
-set statusline=%t       "tail only filename from path
-set statusline+=%h      "help file flag
-set statusline+=%m      "modified flag
-set statusline+=%r      "read only flag
-set statusline+=%=      "left/right separator
-set statusline+=%c,     "cursor column
-set statusline+=%l/%L   "cursor line/total lines
-set statusline+=\ %P    "percent through file
-set laststatus=2        "always show status line
+set statusline=%t     " tail only filename from path
+set statusline+=%h    " help file flag
+set statusline+=%m    " modified flag
+set statusline+=%r    " read only flag
+set statusline+=%=    " left/right separator
+set statusline+=%c,   " cursor column
+set statusline+=%l/%L " cursor line/total lines
+set statusline+=\ %P  " percent through file
+set laststatus=2      " always show status line
 
 "folding settings
-set foldmethod=indent   "fold based on indent
-set foldnestmax=3       "deepest fold is 3 levels
-set nofoldenable        "dont fold by default
-
-set wildmode=list:longest   "make cmdline tab completion similar to bash
-set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
-set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
+set nofoldenable                         "dont fold by default
+set foldmethod=expr                      " fold by expression
+set foldexpr=getline(v:lnum)=~'^\\s*#'     " fold lines that start with #
+set fillchars="fold: "                   " get rid of ---
+" get rid of underline
+hi Folded term=NONE cterm=NONE gui=NONE ctermbg=None 
+set foldtext="" " don't show text of first commented line when folded
 
 "display tabs and trailing spaces
-"set list
-"set listchars=tab:▷⋅,trail:⋅,nbsp:⋅
+" set list
+" set listchars=tab:▸\\ ,eol:¬
 
-set formatoptions-=o "dont continue comments when pushing o/O
-
-"vertical/horizontal scroll off settings
-set scrolloff=3
-set sidescrolloff=7
-set sidescroll=1
 
 "load ftplugins and indent files
 filetype plugin on
 filetype indent on
 
-"turn on syntax highlighting
-syntax on
 
 "some stuff to get the mouse going in term
 set mouse=a
 set ttymouse=xterm2
 
-"tell the term has 256 colors
-set t_Co=256
-
-"hide buffers when not displayed
-set hidden
 
 "dont load csapprox if we no gui support - silences an annoying warning
 if !has("gui")
@@ -146,53 +176,12 @@ let g:miniBufExplUseSingleClick = 1
 " M-right = alt+arrow
 " C = ctrl
 
-"how to map this?
-"noremap <silent> ,c<space> :wincmd c<space><cr>
-
-" Move the cursor to the window left of the current one
-noremap <silent> ,h :wincmd h<cr>
-
-" Move the cursor to the window below the current one
-noremap <silent> ,j :wincmd j<cr>
-
-" Move the cursor to the window above the current one
-noremap <silent> ,k :wincmd k<cr>
-
-" Move the cursor to the window right of the current one
-noremap <silent> ,l :wincmd l<cr>
-
-" Close the window below this one
-noremap <silent> ,cj :wincmd j<cr>:close<cr>
-
-" Close the window above this one
-noremap <silent> ,ck :wincmd k<cr>:close<cr>
-
-" Close the window to the left of this one
-noremap <silent> ,ch :wincmd h<cr>:close<cr>
-
-" Close the window to the right of this one
-noremap <silent> ,cl :wincmd l<cr>:close<cr>
-
-" Close the current window
-noremap <silent> ,cc :close<cr>
-
-" Move the current window to the right of the main Vim window
-noremap <silent> ,ml <C-W>L
-
-" Move the current window to the top of the main Vim window
-noremap <silent> ,mk <C-W>K
-
-" Move the current window to the left of the main Vim window
-noremap <silent> ,mh <C-W>H
-
-" Move the current window to the bottom of the main Vim window
-noremap <silent> ,mj <C-W>J
-
 "buffers
-map <C-t> <Esc>:bn<CR>
-map <C-h> <Esc>:bp<CR>
+map <C-h> <Esc>:bn<CR>
+map <C-t> <Esc>:bp<CR>
 map <C-d> <Esc>:bd<CR>
 
+"alt keys
 nmap <M-1> <Esc>:b1<CR>
 nmap <M-2> <Esc>:b2<CR>
 nmap <M-3> <Esc>:b3<CR>
@@ -205,21 +194,30 @@ nmap <M-9> <Esc>:b9<CR>
 
 "F keys
 map <F1> :NERDTreeToggle<CR>
-map <F2> :FuzzyFinderBuffer<CR>
-map <F3> :TMiniBufExplorer<CR>
+nnoremap <F2> :set nonumber!<CR>
 map <F4> :TlistToggle<CR>
-call togglebg#map("<F5>")
+call togglebg#map("<F5>") " used by solarized color scheme
+" F9 to toggle folds
+inoremap <F9> <C-O>zi
+nnoremap <F9> zi
+onoremap <F9> <C-C>zi
+vnoremap <F9> zi
 
-"make <c-l> clear the highlight as well as redraw
-nnoremap <C-L> :nohls<CR><C-L>
-inoremap <C-L> <C-O>:nohls<CR>
+"fuzzy finder with ctrl+p
+let g:ctrlp_map = '<c-p>'
 
-"map Q to something useful
-noremap Q gq
+nnoremap <F3> :set invpaste paste?<CR>
+set pastetoggle=<F3>
+set showmode
 
-"make Y consistent with C and D
-nnoremap Y y$
+
+"add \v to regex search - not working
+" nnoremap / /\\v 
+" vnoremap / /\\v
+
 
 au BufNewFile,BufRead *.ejs set filetype=javascript
 au BufNewFile,BufRead *.mustache set filetype=html
-":set tags+=$PROJECTROOT/tags
+au BufNewFile,BufRead *.styl set filetype=css
+
+let g:syntastic_mode_map = { 'mode': 'passive' }

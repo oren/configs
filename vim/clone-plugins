@@ -1,0 +1,36 @@
+#!/bin/bash
+
+repos=(
+"https://github.com/wincent/Command-T.git"
+"git://github.com/scrooloose/nerdcommenter.git"
+"git://github.com/scrooloose/nerdtree.git"
+"https://github.com/vim-scripts/Rainbow-Parenthesis.git"
+"https://github.com/honza/snipmate-snippets.git"
+"https://github.com/godlygeek/tabular.git"
+"https://github.com/vim-scripts/taglist.vim.git"
+"https://github.com/tomtom/tlib_vim.git"
+"https://github.com/MarcWeber/vim-addon-mw-utils.git"
+"https://github.com/kchmck/vim-coffee-script.git"
+"git://github.com/altercation/vim-colors-solarized.git"
+"git://github.com/tpope/vim-endwise.git"
+"https://github.com/plasticboy/vim-markdown.git"
+"https://github.com/tsaleh/vim-matchit.git"
+"git://github.com/tpope/vim-rails.git"
+"git://github.com/garbas/vim-snipmate.git"
+"http://github.com/bingaman/vim-sparkup.git"
+"git://github.com/tpope/vim-surround.git"
+"https://github.com/tsaleh/vim-tcomment.git"
+"https://github.com/Lokaltog/vim-powerline.git"
+"https://github.com/scrooloose/syntastic.git"
+"https://github.com/kien/ctrlp.vim.git"
+)
+
+echo "cloning plugin repositories"
+for repo in "${repos[@]}" 
+  do 
+    cd bundle
+    git clone "$repo"
+    echo "cloning $repo"
+done
+
+
