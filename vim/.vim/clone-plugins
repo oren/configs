@@ -1,8 +1,6 @@
 #!/bin/bash
 
 repos=(
-"https://github.com/wincent/Command-T.git"
-"git://github.com/scrooloose/nerdcommenter.git"
 "git://github.com/scrooloose/nerdtree.git"
 "https://github.com/vim-scripts/Rainbow-Parenthesis.git"
 "https://github.com/honza/snipmate-snippets.git"
@@ -19,16 +17,18 @@ repos=(
 "git://github.com/garbas/vim-snipmate.git"
 "http://github.com/bingaman/vim-sparkup.git"
 "git://github.com/tpope/vim-surround.git"
-"https://github.com/tsaleh/vim-tcomment.git"
+"https://github.com/tomtom/tcomment_vim.git"
 "https://github.com/Lokaltog/vim-powerline.git"
 "https://github.com/scrooloose/syntastic.git"
 "https://github.com/kien/ctrlp.vim.git"
 )
 
 echo "cloning plugin repositories"
+
+cd bundle
+
 for repo in "${repos[@]}" 
   do 
-    cd bundle
     git clone "$repo"
     echo "cloning $repo"
 done

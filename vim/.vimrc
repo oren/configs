@@ -8,11 +8,11 @@ call pathogen#runtime_append_all_bundles()
 
 let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 
-"set encoding=utf-8
-set vb t_vb=".  "no beeps
+"no beeps
+set vb t_vb=".  
 syntax enable
 
-set guifont=Menlo:h20
+" set guifont=Menlo:h20
 " set background=light
 set background=dark
 let g:solarized_termcolors=256
@@ -21,9 +21,11 @@ let g:solarized_contrast="high"
 colorscheme solarized
 
 
+" set sts=2
+" set sw=2
+
 "indent settings
-set sts=2
-set sw=2
+set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set expandtab
@@ -46,8 +48,12 @@ set hlsearch                   " hilight searches by default
 set wildmode=list:longest      " make cmdline tab completion similar to bash
 set wildmenu                   " enable ctrl-n and ctrl-p to scroll thru matches
 set wildignore=*.o,*.obj,*~    " stuff to ignore when tab completing
-"syntax on                      "turn on syntax highlighting
-                               " tab is easier than % for matches
+
+" find how to change location of tmp files
+" set undofile                   " undo works even after reopening a file
+
+
+" matches closing { with tab
 nnoremap <tab> %
 vnoremap <tab> %
 set scrolloff=3
@@ -77,9 +83,9 @@ inoremap <leader>c <C-x><C-o>
 
 " handle long lines
 set nowrap
-"set textwidth=79
-"set formatoptions=qrn1
-" set colorcolumn=85 "not working. maybe vim version?
+" set textwidth=79
+" set formatoptions=qrn1
+" set colorcolumn=85 
 
 "old settings. might go back to this
 " set nowrap                     " dont wrap lines
@@ -193,7 +199,8 @@ nmap <M-8> <Esc>:b8<CR>
 nmap <M-9> <Esc>:b9<CR>
 
 "F keys
-map <F1> :NERDTreeToggle<CR>
+set pastetoggle=<F3> " hit this before pasting to fix indentation
+map <F1> :e.<CR>
 nnoremap <F2> :set nonumber!<CR>
 map <F4> :TlistToggle<CR>
 call togglebg#map("<F5>") " used by solarized color scheme
@@ -216,7 +223,7 @@ set showmode
 " vnoremap / /\\v
 
 
-au BufNewFile,BufRead *.ejs set filetype=javascript
+au BufNewFile,BufRead *.ejs set filetype=html
 au BufNewFile,BufRead *.mustache set filetype=html
 au BufNewFile,BufRead *.styl set filetype=css
 
