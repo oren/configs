@@ -1,7 +1,6 @@
 #!/bin/bash
 
 repos=(
-"git://github.com/scrooloose/nerdtree.git"
 "https://github.com/vim-scripts/Rainbow-Parenthesis.git"
 "https://github.com/honza/snipmate-snippets.git"
 "https://github.com/godlygeek/tabular.git"
