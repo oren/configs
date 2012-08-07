@@ -25,6 +25,10 @@ repos=(
 
 echo "cloning plugin repositories"
 
+if [ ! -d "bundle" ]; then
+  mkdir "bundle"
+fi
+
 cd bundle
 
 for repo in "${repos[@]}" 
